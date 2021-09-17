@@ -1,8 +1,7 @@
-import http from 'http'
-import express from 'express'
-import cors from 'cors'
-import cookieParser from 'cookie-parser'
-import { api } from "./api";
+import http from 'http';
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express()
 
@@ -24,4 +23,13 @@ app.get('/', (req, res) => {
   res.send('Hola mundo')
 })
 
-app.use('/api',api)
+app.post('/topsecret',function(request, response) {
+  
+    response.status(200).send({
+      position: {
+        x:' coordinates[0],'
+        y: 'coordinates[1]'
+      },
+      message: 'SI'
+    });
+});
