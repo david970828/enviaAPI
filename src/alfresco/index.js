@@ -1,1 +1,1 @@
-export const alfresco = {}
+export const alfresco = {'dasdas': () => 'sds'}
