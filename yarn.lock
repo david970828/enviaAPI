@@ -2811,11 +2811,6 @@ node-releases@^1.1.75:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.75.tgz#6dd8c876b9897a1b8e5a02de26afa79bb54ebbfe"
   integrity sha512-Qe5OUajvqrqDSy6wrWFmMwfJ0jVgwiw4T3KqmbTcZ62qW0gQkheXYhcFM1+lOVcGUoRxcEcfyvFMAnDgaF1VWw==
 
-nodemin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/nodemin/-/nodemin-1.0.1.tgz#30c8a5ef03a9e14988be285ea57ef710b9fd2834"
-  integrity sha512-0A85vHn/2K8jNt04zetz7vygqwkF2SOKgVMeKaoD87RJz1kP1TAEMyL83lPeNeFH7W9xeQ4k++QQExvkidI/4g==
-
 nodemon@^2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.12.tgz#5dae4e162b617b91f1873b3bfea215dd71e144d5"
