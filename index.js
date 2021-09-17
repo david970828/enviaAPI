@@ -1,39 +1,46 @@
-require('@babel/register')({
-  presets: ['@babel/preset-env'],
+var sessionStorage = require('sessionstorage');
+var bodyParser = require('body-parser');
+var express = require('express'),
+app = express(),
+port = process.env.PORT || 3000;
+
+
+
+app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-with, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+  next();
 });
+app.listen(port);
+console.log('RestFull API QUASAR started on: ' + port);
 
-import http from 'http';
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
 
-const app = express()
-
-app.use(cors())
-app.use(express.json({ limit: '200MB' }));
-app.use(
-  express.urlencoded({ extended: true, limit: '200MB', parameterLimit: 50000 })
-);
-app.use(cookieParser());
-
-const server = http.createServer(app);
-const port = process.env.PORT || 3000;
-
-server.listen(port, () => {
-  console.log('RestFull API ENVIA started on: ' + port);
-});
-
-app.get('/', (req, res) => {
-  res.send('Hola mundo')
-})
-
-app.post('/topsecret',function(request, response) {
-  
+/************************************************************************************
+ *                                API POST TOP SECRET                               *
+ *    Obtiene la posicion y mensaje de la nave, a partir del payload de entrada,    *
+ *    si no es posible obtenerlos responde un codigo HTTP 404                       *
+ ************************************************************************************/
+app.post('/distribution',function(request, response) {
     response.status(200).send({
       position: {
-        x:' coordinates[0],'
-        y: 'coordinates[1]'
+        x: 'coordinates[0]',
+        y: 'coordinates[1']
       },
-      message: 'SI'
+      message:'HOLA MUNDO'
+    });
+});
+
+
+/************************************************************************************
+ *                           API GET TOP SECRET SPLIT                               *
+ *    Permite obtener la posicion y mensaje de la nave a partir de minimo 3         *
+ *    satelites almacenados en el sessionStorage, de no tener la cantidad de        *
+ *    satelites, generara un codigo HTTP 404 - no hay informacion suficiente        *
+ ************************************************************************************/
+app.get('/distribution',function(request, response) {
+  response.status(200).send({
+      message:'GET MESSAGE'
     });
 });
