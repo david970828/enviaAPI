@@ -1,7 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "package.json", "use": "now-sapper" }
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
     {
