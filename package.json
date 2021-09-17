@@ -1,0 +1,30 @@
+{
+  "name": "enviaapi",
+  "version": "1.0.0",
+  "description": "proyecto PUJ procesos de negocio",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david970828/enviaAPI.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.5.1",
+    "express": "^4.7.1",
+    "mssql": "^7.2.1",
+    "sessionstorage": "^0.1.0"
+  },
+  "keywords": [
+    "api",
+    "nodejs",
+    "sqlserver",
+    "alfresco"
+  ],
+  "author": "estudiantes PUJ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david970828/enviaAPI/issues"
+  },
+  "homepage": "https://github.com/david970828/enviaAPI#readme"
+}
