@@ -12,6 +12,8 @@
     "url": "git+https://github.com/david970828/enviaAPI.git"
   },
   "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.6",
     "@babel/runtime": "^7.15.4",
@@ -34,8 +36,6 @@
   },
   "homepage": "https://github.com/david970828/enviaAPI#readme",
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/node": "^7.15.4",
     "nodemon": "^2.0.12"
   }
 }
