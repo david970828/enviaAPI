@@ -1,11 +1,10 @@
-class Planillas {
+export class Planillas {
 
-	constructor(id_planilla, tipo_planilla, documento_base) {
-		this.id_planilla = id_planilla;
-		this.tipo_planilla = tipo_planilla;
-		this.documento_base = documento_base;
+	constructor(object) {
+		this.id_planilla = object.id_planilla;
+		this.tipo_planilla = object.tipo_planilla;
+		this.documento_base = object.documento_base;
+		this.fecha_creacion = object.fecha_creacion;
 	}
 
 }
-
-exports.module = Planillas;

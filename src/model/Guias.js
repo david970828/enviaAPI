@@ -1,19 +1,17 @@
-class Guias {
+export class Guias {
 
-	constructor(nombre_destinatario, direccion_destinatario, telefono_destinatario, peso_paquete, clasificacion,
-		contenido, ciudad_destino, estado_guia, documento_relacionado, id_solicitud) {
-		this.nombre_destinatario = nombre_destinatario;
-		this.direccion_destinatario = direccion_destinatario;
-		this.telefono_destinatario = telefono_destinatario;
-		this.peso_paquete = peso_paquete;
-		this.clasificacion = clasificacion;
-		this.contenido = contenido;
-		this.ciudad_destino = ciudad_destino;
-		this.estado_guia = estado_guia;
-		this.documento_relacionado = documento_relacionado;
-		this.id_solicitud = id_solicitud;
+	constructor(object) {
+		this.id_guia = object.id_guia;
+		this.nombre_destinatario = object.nombre_destinatario;
+		this.direccion_destinatario = object.direccion_destinatario;
+		this.telefono_destinatario = object.telefono_destinatario;
+		this.peso_paquete = object.peso_paquete;
+		this.clasificacion = object.clasificacion;
+		this.contenido = object.contenido;
+		this.ciudad_destino = object.ciudad_destino;
+		this.estado_guia = object.estado_guia;
+		this.documento_relacionado = object.documento_relacionado;
+		this.id_solicitud = object.id_solicitud;
 	}
 
 }
-
-module.exports = Guias;

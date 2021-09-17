@@ -1,10 +1,8 @@
-class GuiasPlanillas {
+export class GuiasPlanillas {
 
-	constructor(id_guia, id_planilla) {
-		this.id_guia = id_guia;
-		this.id_planilla = id_planilla;
+	constructor(object) {
+		this.id_guia = object.id_guia;
+		this.id_planilla = object.id_planilla;
 	}
 
 }
-
-exports.module = GuiasPlanillas;
