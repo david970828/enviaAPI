@@ -26,7 +26,7 @@ app.post('/distribution',function(request, response) {
     response.status(200).send({
       position: {
         x: 'coordinates[0]',
-        y: 'coordinates[1']
+        y: 'coordinates[1'
       },
       message:'HOLA MUNDO'
     });
