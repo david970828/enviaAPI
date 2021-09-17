@@ -1,5 +1,5 @@
 export class DistributionController {
-    async function getDistribution(req, res) {
+    getDistribution = async (req, res) => {
      console.log(req.body);
      let message = 'STATUS 200';
      if (req.body === null) {
