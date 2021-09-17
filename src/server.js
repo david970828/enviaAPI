@@ -2,7 +2,6 @@ import http from 'http'
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import * as sapper from '@sapper/server';
 import { api } from "./api";
 
 const app = express()
