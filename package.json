@@ -4,7 +4,6 @@
   "description": "proyecto PUJ procesos de negocio",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "predeploy": "yarn install --production=false",
     "clean": "rm -rf dist/",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,10 +14,6 @@
   },
   "dependencies": {
     "@babel/cli": "^7.15.4",
-    "@babel/core": "^7.15.5",
-    "@babel/node": "^7.15.4",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.6",
     "@babel/runtime": "^7.15.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
