@@ -2,6 +2,7 @@
   "name": "enviaapi",
   "version": "1.0.0",
   "description": "proyecto PUJ procesos de negocio",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
     "clean": "rm -rf dist/",
