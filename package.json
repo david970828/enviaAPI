@@ -4,6 +4,7 @@
   "description": "proyecto PUJ procesos de negocio",
   "scripts": {
     "dev": "nodemon src/index.js",
+    "predeploy": "yarn install --production=false",
     "clean": "rm -rf dist/",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
