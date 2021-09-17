@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "clean": "rm -rf dist/",
-    "start": "npm run production",
+    "start": "node dist/index.js",
     "build": "npm run clean && mkdir dist/ && babel src/ -s -d dist/",
     "production": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,10 +16,6 @@
   },
   "dependencies": {
     "@babel/cli": "^7.15.4",
-    "@babel/core": "^7.15.5",
-    "@babel/node": "^7.15.4",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.6",
     "@babel/runtime": "^7.15.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -40,6 +36,10 @@
   },
   "homepage": "https://github.com/david970828/enviaAPI#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
     "nodemon": "^2.0.12"
   }
 }
