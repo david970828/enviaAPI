@@ -3,8 +3,10 @@
  * Configuraciones de servidor
  */
 
+const presetEnv = require('@babel/preset-env')
+
 require('@babel/register')({
-  presets: ['@babel/preset-env'],
+  presets: [presetEnv],
 });
 
 require('./src/server');

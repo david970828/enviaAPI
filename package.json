@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "predeploy": "yarn install --production=false",
     "clean": "rm -rf dist/",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,7 +24,6 @@
     "cors": "^2.8.5",
     "express": "^4.7.1",
     "mssql": "^7.2.1",
-    "now-sapper": "^0.39.2",
     "sessionstorage": "^0.1.0"
   },
   "keywords": [
