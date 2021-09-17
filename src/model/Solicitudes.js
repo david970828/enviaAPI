@@ -12,4 +12,4 @@ class Solicitudes {
 
 }
 
-exports.module = Planillas;
+exports.module = Solicitudes;

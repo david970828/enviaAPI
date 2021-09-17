@@ -15,4 +15,5 @@ class Guias {
 	}
 
 }
+
 module.exports = Guias;
