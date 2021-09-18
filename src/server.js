@@ -26,3 +26,5 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api',api)
+
+export default app
