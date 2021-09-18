@@ -1,12 +1,12 @@
 export const dbconfig = {
-  user:  'admin', // sql user
-  password:  'enviadb2021', //sql user password
-  server:  'envia.cucvitskt8ty.us-east-2.rds.amazonaws.com', // if it does not work try- localhost
+  user:  'admin',
+  password:  'enviadb2021',
   database:  'envia',
+  server:  'envia.cucvitskt8ty.us-east-2.rds.amazonaws.com',
   options: {
-    trustedconnection:  true,
+    trustServerCertificate:  true,
     enableArithAbort:  true,
-    instancename:  'SQLEXPRESS'  // SQL Server instance name
   },
-  port:  1433
+  connectionTimeout: 25000,
+  requestTimeout: 250000
 };

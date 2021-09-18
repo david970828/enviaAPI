@@ -7,8 +7,10 @@ export class DistributionController {
     getDistribution = async (req, res) => {
       const petition = new Solicitudes(req.body);
       const guideList = new Array(Guias);
-      console.log(petition);
-      console.log('**************************************');
+
+      const idSolicitud = new CrudDistribution().newSolicitud(petition);
+
+      console.log(idSolicitud);
       req.body.paquetes.forEach(guide => {
         guideList.push(guide);
       });
@@ -17,10 +19,7 @@ export class DistributionController {
        res.status(404).send({error: 'no position - no message'});
       } else {
        res.status(200).send({
-         position: {
-           x: 'X',
-           y: 'Y'
-         },
+         idSolicitud: idSolicitud,
          message: message
        });
      }
