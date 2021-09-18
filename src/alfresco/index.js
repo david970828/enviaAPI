@@ -1,4 +1,12 @@
-import Alfresco from "alfresco-js-api-node";
+import { alfrescoApi } from './config';
 
-const alfrescoApi = new Alfresco({})
-
+export class AlfrescoController {
+  loginAlfresco = (user, password) =>
+    alfrescoApi
+      .login(user, password)
+      .then(
+        (data) =>
+          `API called successfully Login in  BPM and ECM performed ${data}`
+      )
+      .catch((error) => error);
+}
