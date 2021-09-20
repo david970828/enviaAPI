@@ -1,3 +1,5 @@
+import { Documentos } from '../pdf/index';
+
 export class Prueba {
   constructor(nameGuia, nameDestination) {
     this.nameGuia = nameGuia;

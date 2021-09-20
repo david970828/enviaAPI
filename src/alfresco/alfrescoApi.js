@@ -1,9 +1,9 @@
-import { AlfrescoController } from '../alfresco';
-import { Prueba } from '../pdf';
+import { Prueba } from '../test/testAlfresco';
+import { v4 } from 'uuid';
 
 export const alfrescoApi = {
   test: async (req, res) => {
-    const test = new Prueba();
+    const test = new Prueba('guia', v4());
     await test
       .prueba()
       .then(() => {
