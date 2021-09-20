@@ -1,14 +1,17 @@
-import { AlfrescoController } from '../alfresco';
-import { prueba } from '../docs';
-
-const Alfresco = new AlfrescoController();
+import { Prueba } from '../test/testAlfresco';
+import { v4 } from 'uuid';
 
 export const alfrescoApi = {
-  loginApi: (req, res) => {
-    const { user, password } = req.body;
-    prueba();
-    Alfresco.loginAlfresco(user, password)
-      .then((result) => res.send(result))
-      .catch((err) => res.status(400).send(err));
+  test: async (req, res) => {
+    const test = new Prueba('guia', v4());
+    await test
+      .prueba()
+      .then(() => {
+        pruebaPlanilla();
+        res.send('OK');
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   },
 };

@@ -1,6 +1,6 @@
-import Alfresco from 'alfresco-js-api-node';
+import { AlfrescoApi } from '@alfresco/js-api';
 
-const alfrescoInstance = new Alfresco({
+const alfrescoInstance = new AlfrescoApi({
   hostEcm: process.env.HOST_ALFRESCO,
   provider: 'ECM',
 });

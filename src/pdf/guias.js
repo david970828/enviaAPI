@@ -1,8 +1,9 @@
 import { FillPdf } from './fillPdf';
 
 export class Guias extends FillPdf {
-  constructor(source) {
-    super(source);
+  constructor(source, fileName) {
+    super(source, fileName);
+    this.destination = process.env.FOLDER_GUIAS;
   }
   fill = async (data) => {
     await this.initializeFill();
@@ -25,6 +26,6 @@ export class Guias extends FillPdf {
     await this.setField('valor_declarado', data.valor_declarado);
     await this.setField('valor_servicio', data.valor_servicio);
     await this.setField('total_flete', data.total_flete);
-    await this.saveDocument();
+    await this.saveOnAlfresco();
   };
 }
