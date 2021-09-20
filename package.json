@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/david970828/enviaAPI#readme",
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "nodemon": "^2.0.12"
   }
 }

@@ -1,0 +1,5 @@
+HOST_ALFRESCO = http://34.125.244.22:8080
+FOLDER_GUIAS = envia/guias
+FOLDER_PLANILLAS = envia/planillas
+USER_ALFRESCO = admin
+PASSWORD_ALFRESCO = admin

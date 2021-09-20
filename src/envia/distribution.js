@@ -6,21 +6,23 @@ export class DistributionController {
 
     getDistribution = async (req, res) => {
       const petition = new Solicitudes(req.body);
-      const guideList = new Array(Guias);
-
-      const idSolicitud = new CrudDistribution().newSolicitud(petition);
-
-      console.log(idSolicitud);
+      const response = await new CrudDistribution().newSolicitud(petition);
+      const guideList =[];
+        let id_solicitud = response[0][0].id_solicitud;
+      console.log(req.body.paquetes.length);
       req.body.paquetes.forEach(guide => {
+        guide.id_solicitud =  id_solicitud;
         guideList.push(guide);
       });
-      let message = 'STATUS 200';
+
+      await new CrudDistribution().addGuias(guideList);
+
       if (req.body === null) {
-       res.status(404).send({error: 'no position - no message'});
+       res.status(500).send({error: 'internal error'});
       } else {
        res.status(200).send({
-         idSolicitud: idSolicitud,
-         message: message
+         idSolicitud: id_solicitud,
+         message: 'STATUS 200'
        });
      }
    }

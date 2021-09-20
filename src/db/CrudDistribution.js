@@ -1,5 +1,4 @@
 import { dbconfig } from './dbconfig';
-import e from "express";
 const  sql = require('mssql');
 
 export class CrudDistribution {
@@ -31,12 +30,12 @@ export class CrudDistribution {
                     '${distribution.direccion_recoleccion}',
                     '${distribution.telefono_recoleccion}', 
                     '${distribution.email_recoleccion}')`;
-    return this.executeQuery(SCRIPT);
+    return await  this.executeQuery(SCRIPT);
   }
 
   addGuias = async (guideList) => {
     const SCRIPT = `INSERT INTO GUIAS (
-                    documento_destinatario
+                    documento_destinatario,
                     nombre_destinatario,
                     direccion_destinatario,
                     telefono_destinatario,
@@ -51,7 +50,8 @@ export class CrudDistribution {
                     valor_servicio,
                     documento_relacionado,
                     id_solicitud) VALUES ${this.getRecords(guideList)}`;
-    return this.executeQuery(SCRIPT);
+    console.log(SCRIPT);
+    return await this.executeQuery(SCRIPT);
   }
 
   getRecords = (guideList) => {
@@ -78,23 +78,9 @@ export class CrudDistribution {
   }
 
   executeQuery = async (script) => {
-    let response;
-    let pool = await sql.connect(dbconfig);
-    const transaction = new sql.Transaction(pool);
-    transaction.begin(err => {
-      console.log(err);
-      const request = new sql.Request(transaction)
-      request.query(script, (err, result) => {
-        console.log('err');
-        console.log(err);
-        console.log('result');
-        response = result;
-        transaction.commit(err => {
-          console.log("Transaction committed.")
-        });
-      });
-    });
-    return response;
+    let  pool = await  sql.connect(dbconfig);
+    let  idSolicitud = await  pool.request().query(script);
+    return idSolicitud.recordsets;
   }
 
 }
