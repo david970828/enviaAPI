@@ -3,10 +3,12 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { api } from './api';
+import { AlfrescoController } from './alfresco';
 
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config();
+  console.log(process.env.HOST_ALFRESCO);
 }
 const app = express();
 const server = http.createServer(app);

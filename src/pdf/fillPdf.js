@@ -7,11 +7,10 @@ export class FillPdf {
   constructor(source, fileName) {
     this.source = documentPath(source);
     this.fileName = documentPath(fileName);
+    this.Alfresco = new AlfrescoController();
     this.destination = '';
-    this.Alfresco = null;
   }
   initializeFill = async () => {
-    this.Alfresco = await AlfrescoController.getInstance();
     const fileToUpload = fs.readFileSync(this.source);
     this.pdfDoc = await PDFDocument.load(fileToUpload);
     this.form = this.pdfDoc.getForm();
@@ -27,6 +26,7 @@ export class FillPdf {
     fs.writeFileSync(this.fileName, this.documentSaved);
   };
   saveOnAlfresco = async () => {
+    await this.Alfresco.loginAlfresco();
     this.saveDocument()
       .then(async () => {
         return await this.Alfresco.uploadFile(this.fileName, this.destination);
