@@ -1,8 +1,8 @@
 import express from 'express';
-import { alfrescoApi } from '../alfresco/alfrescoApi';
+import { myAlfrescoApi } from '../alfresco/alfrescoApi';
 
 const api = express.Router();
 
-api.post('/testAlfresco', alfrescoApi.test);
+api.post('/testAlfresco', myAlfrescoApi.test);
 
 export const alfrescoRoutes = api;
