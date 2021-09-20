@@ -7,6 +7,7 @@ export const alfrescoApi = {
     await test
       .prueba()
       .then(() => {
+        pruebaPlanilla();
         res.send('OK');
       })
       .catch((err) => {

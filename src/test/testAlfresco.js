@@ -33,4 +33,7 @@ export class Prueba {
       console.log(err);
     }
   };
+  pruebaPlanilla = () => {
+    //TODO
+  };
 }

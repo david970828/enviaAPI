@@ -3,6 +3,7 @@ import { FillPdf } from './fillPdf';
 export class Guias extends FillPdf {
   constructor(source, fileName) {
     super(source, fileName);
+    this.destination = process.env.FOLDER_GUIAS;
   }
   fill = async (data) => {
     await this.initializeFill();

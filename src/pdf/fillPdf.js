@@ -7,6 +7,7 @@ export class FillPdf {
   constructor(source, fileName) {
     this.source = documentPath(source);
     this.fileName = documentPath(fileName);
+    this.destination = '';
     this.Alfresco = null;
   }
   initializeFill = async () => {
@@ -28,10 +29,7 @@ export class FillPdf {
   saveOnAlfresco = async () => {
     this.saveDocument()
       .then(async () => {
-        return await this.Alfresco.uploadFile(
-          this.fileName,
-          process.env.FOLDER_GUIAS
-        );
+        return await this.Alfresco.uploadFile(this.fileName, this.destination);
       })
       .then((res) => {
         fs.unlinkSync(this.fileName);
