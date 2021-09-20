@@ -50,7 +50,6 @@ export class CrudDistribution {
                     valor_servicio,
                     documento_relacionado,
                     id_solicitud) VALUES ${this.getRecords(guideList)}`;
-    console.log(SCRIPT);
     return await this.executeQuery(SCRIPT);
   }
 
@@ -59,7 +58,7 @@ export class CrudDistribution {
     guideList.forEach(item => {
       values.push(`(
       '${item.documento_destinatario}',
-      '${item.nombre_destinatario}',
+      '${item.guia_destinatario}',
       '${item.direccion_destinatario}',
       '${item.telefono_destinatario}',
       '${item.peso_guia}',
@@ -67,11 +66,11 @@ export class CrudDistribution {
       '${item.contenido_guia}',
       '${item.fecha_admision}',
       '${item.fecha_entrega}',
-      '${item.destino_guia}',
+      '${item.guia_destino}',
       '${item.estado_guia}',
       ${item.valor_declarado},
       ${item.valor_servicio},
-      '${item.documento_relacionado}',
+      'envia/${item.documento_relacionado}.pdf',
       ${item.id_solicitud})`);
     });
     return values.toString();
@@ -84,3 +83,4 @@ export class CrudDistribution {
   }
 
 }
+
