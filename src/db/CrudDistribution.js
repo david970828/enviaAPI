@@ -70,7 +70,7 @@ export class CrudDistribution {
       '${item.estado_guia}',
       ${item.valor_declarado},
       ${item.valor_servicio},
-      'envia/${item.documento_relacionado}.pdf',
+      'envia/guias/${item.documento_relacionado}.pdf',
       ${item.id_solicitud})`);
     });
     return values.toString();
