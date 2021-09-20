@@ -25,8 +25,7 @@ export class AlfrescoController {
       .catch((error) => console.log(error));
   };
   uploadFile = async (name, folder) => {
-    const f = name;
-    const stream = fs.createReadStream(f);
+    const stream = fs.createReadStream(name);
     const uploadApi = new UploadApi(alfrescoApi);
     await uploadApi
       .uploadFile(stream, folder)
