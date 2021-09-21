@@ -2,6 +2,8 @@ import { PDFDocument } from 'pdf-lib';
 import fs from 'fs';
 import { AlfrescoController } from '../alfresco';
 import { documentPath } from '../util';
+import 'jspdf-autotable';
+import { generatePDF } from '../util/generatePdf';
 
 export class FillPdf {
   constructor(source, fileName) {
@@ -27,13 +29,20 @@ export class FillPdf {
   };
   saveOnAlfresco = async () => {
     await this.Alfresco.loginAlfresco();
-    this.saveDocument()
-      .then(async () => {
-        return await this.Alfresco.uploadFile(this.fileName, this.destination);
-      })
-      .then((res) => {
-        fs.unlinkSync(this.fileName);
-      });
+    await this.Alfresco.uploadFile(this.fileName, this.destination).then(() => {
+      fs.unlink(this.fileName);
+    });
   };
   getDocumentSaved = () => this.documentSaved;
+  makeTable = async (body) => {
+    const doc = await generatePDF(body);
+    doc.save(this.fileName);
+  };
+  insertTableInPDF = async (body) => {
+    try {
+      await this.makeTable(body);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }

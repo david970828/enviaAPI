@@ -1,3 +1,5 @@
+import { MockGuia } from '../mocks/MockGuia';
+import { MockPlanilla } from '../mocks/MockPlanilla';
 import { Documentos } from '../pdf/index';
 
 export class Prueba {
@@ -8,32 +10,24 @@ export class Prueba {
   }
   prueba = async () => {
     try {
-      await this.documentos.crearGuia(this.nameGuia, this.nameDestination, {
-        id_guia: 1,
-        fecha_admision: '17/09/2021',
-        guia_origen: 'Bogotá',
-        guia_destino: 'Bogotá',
-        guia_remitente: 'Mercado libre',
-        direccion_remitente: 'Cra 20 #4a-92',
-        telefono_remitente: '3212223333',
-        documento_remitente: '123',
-        guia_destinatario: 'David Pardo',
-        telefono_destinatario: '3123334445',
-        documento_destinatario: '12',
-        contenido_guia: 'Zapatos deportivos',
-        peso_guia: '2kg',
-        clasificacion_guia: 'paquete',
-        observaciones_entrega: 'Sin observaciones',
-        fecha_entrega: '19/09/2021',
-        valor_declarado: 200000,
-        valor_servicio: 2000,
-        total_flete: 12000,
-      });
+      await this.documentos.crearGuia(
+        this.nameGuia,
+        this.nameDestination,
+        MockGuia
+      );
     } catch (err) {
       console.log(err);
     }
   };
-  pruebaPlanilla = () => {
-    //TODO
+  pruebaPlanilla = async () => {
+    try {
+      await this.documentos.crearPlanilla(
+        this.nameGuia,
+        this.nameDestination,
+        MockPlanilla
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 }

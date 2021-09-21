@@ -7,7 +7,17 @@ export const myAlfrescoApi = {
     await test
       .prueba()
       .then(() => {
-        test.pruebaPlanilla();
+        res.send('OK');
+      })
+      .catch((err) => {
+        res.status(500).send(err.message);
+      });
+  },
+  testPlanilla: async (req, res) => {
+    const test = new Prueba('planilla', v4());
+    await test
+      .pruebaPlanilla()
+      .then(() => {
         res.send('OK');
       })
       .catch((err) => {
