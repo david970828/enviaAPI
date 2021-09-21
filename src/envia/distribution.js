@@ -60,8 +60,7 @@ export class DistributionController {
       res.status(500).send({error: 'internal error'});
     } else {
       res.status(200).send({
-        guides: listGuides,
-        message: 'STATUS 200'
+        listGuides
       });
     }
   }
