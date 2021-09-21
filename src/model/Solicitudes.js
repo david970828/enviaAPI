@@ -1,3 +1,5 @@
+import { Guias} from "./Guias";
+
 export class Solicitudes {
 
 	constructor(object) {
@@ -9,6 +11,7 @@ export class Solicitudes {
 		this.direccion_recoleccion = object.direccion_recoleccion;
 		this.telefono_recoleccion = object.telefono_recoleccion;
 		this.email_recoleccion = object.email_recoleccion;
+		this.paquetes = object.paquetes;
 	}
 
 }
