@@ -59,9 +59,7 @@ export class DistributionController {
     if (error != null) {
       res.status(500).send({error: 'internal error'});
     } else {
-      res.status(200).send({
-        listGuides
-      });
+      res.status(200).send(listGuides);
     }
   }
 
