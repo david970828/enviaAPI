@@ -1,4 +1,5 @@
 import { dbconfig } from './dbconfig';
+import {request} from "express";
 const  sql = require('mssql');
 
 export class CrudDistribution {
@@ -79,7 +80,21 @@ export class CrudDistribution {
   executeQuery = async (script) => {
     let  pool = await  sql.connect(dbconfig);
     let  idSolicitud = await  pool.request().query(script);
+    sql.close();
     return idSolicitud.recordsets;
+  }
+
+
+  getAllGuides = async (idSolicitud) => {
+    let QUERY = `SELECT * from GUIAS WHERE ID_SOLICITUD = ${idSolicitud}`;
+    try {
+      let  pool = await  sql.connect(dbconfig);
+      let  products = await  pool.request().query(QUERY);
+      sql.close();
+      return  products.recordsets;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }
