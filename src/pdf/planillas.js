@@ -10,6 +10,6 @@ export class Planillas extends FillPdf {
   fill = async (data) => {
     await this.initializeFill();
     await this.insertTableInPDF(data);
-    await this.saveOnAlfresco();
+    return await this.saveOnAlfresco();
   };
 }

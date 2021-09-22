@@ -5,6 +5,7 @@ export const ESTADOS_GUIA = {
   RUTA_NACIONAL: 'RUTA_NACIONAL',
   REPARTO: 'REPARTO',
   ENTREGADO: 'ENTREGADO',
+  SIGMA: 'SIGMA',
 };
 export const HEADERS_PLANILLA = [
   'Guía',

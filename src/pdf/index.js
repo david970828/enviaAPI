@@ -14,7 +14,7 @@ export class Documentos {
   crearPlanilla = async (sourceName, destinationName, data) => {
     this.planilla = new Planillas(sourceName, destinationName);
     try {
-      await this.planilla.fill(data);
+      return await this.planilla.fill(data);
     } catch (error) {
       console.log(error);
     }

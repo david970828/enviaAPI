@@ -10,10 +10,6 @@ export const myAlfrescoApi = {
     await alfrescoController
       .downloadFile(node)
       .then((document) => {
-        /*const u8 = new Uint8Array(document);
-        const decoder = new TextDecoder('utf8');
-        const b64encoded = btoa(decoder.decode(u8));
-        res.status(200).send(b64encoded);*/
         res.status(200).send(document);
       })
       .catch((err) => {

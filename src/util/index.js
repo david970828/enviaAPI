@@ -1,5 +1,7 @@
 import { text } from 'pdf-stream';
 import path from 'path';
+import faker from 'faker';
+import { format, parseISO } from 'date-fns';
 
 export const Uint8arrayToReadableStream = (data) => {
   const stream = text(data).pipe(writable);
@@ -31,3 +33,11 @@ export const deconstructToTablePaquete = (data, remitente) => {
   tableToFill.push(['', '', '', '', '', '', 'Total', total.toString()]);
   return tableToFill;
 };
+
+export const randomName = () => {
+  faker.locale = 'es_MX';
+  return faker.name.findName();
+};
+
+export const toRedableDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
+export const redableNow = () => toRedableDate(new Date().toISOString());

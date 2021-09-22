@@ -6,16 +6,13 @@ export class AlfrescoController {
   constructor() {
     this.alfrescoApi = new ConfigAlfresco();
   }
+  isLoggedIn = () => this.alfrescoApi.isLoggedIn();
   loginAlfresco = async () => {
     const user = process.env.USER_ALFRESCO;
     const password = process.env.PASSWORD_ALFRESCO;
     return await this.alfrescoApi.instance
       .login(user, password)
-      .then((data) =>
-        console.log(
-          `API called successfully Login in  BPM and ECM performed ${data}`
-        )
-      )
+      .then((data) => data)
       .catch((error) => console.log({ error }));
   };
   uploadFile = async (name, folder) => {

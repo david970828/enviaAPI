@@ -17,6 +17,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.options('*', cors());
 app.use(express.json({ limit: '200MB' }));
+app.use(express.text({ limit: '200MB' }));
 app.use(
   express.urlencoded({ extended: true, limit: '200MB', parameterLimit: 50000 })
 );

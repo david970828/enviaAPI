@@ -8,4 +8,5 @@ export class ConfigAlfresco {
       provider: 'ECM',
     });
   }
+  isLoggedIn = () => this.instance.isLoggedIn();
 }

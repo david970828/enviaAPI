@@ -28,7 +28,10 @@ export class FillPdf {
     fs.writeFileSync(this.fileName, this.documentSaved);
   };
   saveOnAlfresco = async () => {
-    await this.Alfresco.loginAlfresco();
+    const isLoggedIn = this.Alfresco.isLoggedIn();
+    if (!isLoggedIn) {
+      await this.Alfresco.loginAlfresco();
+    }
     const node = await this.Alfresco.uploadFile(
       this.fileName,
       this.destination

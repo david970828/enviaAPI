@@ -1,4 +1,9 @@
-import { deconstructToTablePaquete, imagePath } from '../util';
+import {
+  deconstructToTablePaquete,
+  imagePath,
+  randomName,
+  redableNow,
+} from '../util';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { HEADERS_PLANILLA } from '../util/constants';
@@ -12,15 +17,15 @@ export const generatePDF = async (body) => {
   doc.setFontSize(9);
   doc.text(`Fecha y Hora: ${body.fecha_creacion}`, 250, 20);
   doc.text('Modulo: Operaciones', 10, 35);
-  doc.text(`Programa: ${body.programa_planilla}`, 10, 40);
-  doc.text(`Usuario: ${body.usuario_planilla}`, 10, 45);
+  doc.text(`Programa: ${'Bonitasoft - Alfresco'}`, 10, 40);
+  doc.text(`Usuario: ${randomName()}`, 10, 45);
   doc.text(`Planilla: ${body.id_solicitud}`, 120, 35);
   doc.text(`Nombre ruta: ${body.nombre_planilla}`, 120, 40);
-  doc.text(`Conductor: ${body.conductor_planilla}`, 120, 45);
-  doc.text(`Operador 1: ${body.operador1_planilla}`, 120, 50);
-  doc.text(`Operador 2: ${body.operador2_planilla}`, 120, 55);
-  doc.text(`Fecha planilla: ${body.fecha_planilla}`, 250, 35);
-  doc.text(`Página: ${body.pagina_planilla}`, 250, 40);
+  doc.text(`Conductor: ${randomName()}`, 120, 45);
+  doc.text(`Operador 1: ${randomName()}`, 120, 50);
+  doc.text(`Operador 2: ${randomName()}`, 120, 55);
+  doc.text(`Fecha planilla: ${redableNow()}`, 250, 35);
+  doc.text(`Página: ${'1'}`, 250, 40);
   doc.text(`Tipo: ${body.tipo_planilla}`, 250, 45);
   const paquetes = deconstructToTablePaquete(
     [...body.paquetes],

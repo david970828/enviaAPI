@@ -80,9 +80,9 @@ export class CrudDistribution {
 
   executeQuery = async (script) => {
     let pool = await sql.connect(dbconfig);
-    let idSolicitud = await pool.request().query(script);
+    let queryResult = await pool.request().query(script);
     sql.close();
-    return idSolicitud.recordsets;
+    return queryResult.recordsets;
   };
 
   getAllGuides = async (idSolicitud) => {
@@ -95,5 +95,17 @@ export class CrudDistribution {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  addPlanillas = async (planillaInfo) => {
+    const SCRIPT = `INSERT INTO PLANILLAS (
+                    nombre_planilla,
+                    tipo_planilla,
+                    documento_relacionado) 
+                    OUTPUT Inserted.id_planilla VALUES 
+                    ('${planillaInfo.nombre_planilla}',
+                     '${planillaInfo.tipo_planilla}',
+                     '${planillaInfo.documento_relacionado}')`;
+    return await this.executeQuery(SCRIPT);
   };
 }
