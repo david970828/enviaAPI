@@ -30,7 +30,10 @@ export class FillPdf {
   saveOnAlfresco = async () => {
     await this.Alfresco.loginAlfresco();
     await this.Alfresco.uploadFile(this.fileName, this.destination).then(() => {
-      fs.unlink(this.fileName);
+      fs.unlink(this.fileName, (err, res) => {
+        if (err) console.log(err);
+        console.log(res);
+      });
     });
   };
   getDocumentSaved = () => this.documentSaved;
