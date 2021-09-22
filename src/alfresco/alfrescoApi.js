@@ -1,7 +1,25 @@
 import { Prueba } from '../test/testAlfresco';
 import { v4 } from 'uuid';
+import { AlfrescoController } from '.';
 
 export const myAlfrescoApi = {
+  downloadFile: async (req, res) => {
+    const { node } = req.params;
+    const alfrescoController = new AlfrescoController();
+    await alfrescoController.loginAlfresco();
+    await alfrescoController
+      .downloadFile(node)
+      .then((document) => {
+        /*const u8 = new Uint8Array(document);
+        const decoder = new TextDecoder('utf8');
+        const b64encoded = btoa(decoder.decode(u8));
+        res.status(200).send(b64encoded);*/
+        res.status(200).send(document);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  },
   test: async (req, res) => {
     const test = new Prueba('guia', v4());
     await test
@@ -23,5 +41,10 @@ export const myAlfrescoApi = {
       .catch((err) => {
         res.status(500).send(err.message);
       });
+  },
+  testDownload: async (req, res) => {
+    const test = new Prueba('', '');
+    const result = test.pruebaDownload();
+    res.status(200).send(result);
   },
 };

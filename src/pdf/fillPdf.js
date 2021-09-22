@@ -29,12 +29,15 @@ export class FillPdf {
   };
   saveOnAlfresco = async () => {
     await this.Alfresco.loginAlfresco();
-    await this.Alfresco.uploadFile(this.fileName, this.destination).then(() => {
-      fs.unlink(this.fileName, (err, res) => {
-        if (err) console.log(err);
-        console.log(res);
-      });
+    const node = await this.Alfresco.uploadFile(
+      this.fileName,
+      this.destination
+    );
+    fs.unlinkSync(this.fileName, (err, res) => {
+      if (err) console.log(err);
+      console.log(res);
     });
+    return node;
   };
   getDocumentSaved = () => this.documentSaved;
   makeTable = async (body) => {

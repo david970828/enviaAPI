@@ -6,7 +6,7 @@ export class Documentos {
   crearGuia = async (sourceName, destinationName, data) => {
     this.guia = new Guias(sourceName, destinationName);
     try {
-      await this.guia.fill(data);
+      return await this.guia.fill(data);
     } catch (e) {
       console.log(e);
     }

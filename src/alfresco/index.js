@@ -1,5 +1,5 @@
 import { ConfigAlfresco } from './config';
-import { UploadApi } from '@alfresco/js-api';
+import { UploadApi, NodesApi } from '@alfresco/js-api';
 import fs from 'fs';
 
 export class AlfrescoController {
@@ -19,15 +19,21 @@ export class AlfrescoController {
       .catch((error) => console.log({ error }));
   };
   uploadFile = async (name, folder) => {
-    const stream = fs.createReadStream(name);
-    const uploadApi = new UploadApi(this.alfrescoApi.instance);
-    await uploadApi
-      .uploadFile(stream, folder)
-      .then(() => {
-        console.log(`File upload in ${folder}`);
-      })
-      .catch((err) => {
-        console.warn(err.message);
-      });
+    try {
+      const stream = fs.createReadStream(name);
+      const uploadApi = new UploadApi(this.alfrescoApi.instance);
+      return await uploadApi.uploadFile(stream, folder);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  downloadFile = async (nodeId) => {
+    try {
+      const nodeApi = new NodesApi(this.alfrescoApi.instance);
+      const document = await nodeApi.getNodeContent(nodeId);
+      return document;
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

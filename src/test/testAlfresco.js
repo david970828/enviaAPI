@@ -1,3 +1,4 @@
+import { AlfrescoController } from '../alfresco';
 import { MockGuia } from '../mocks/MockGuia';
 import { MockPlanilla } from '../mocks/MockPlanilla';
 import { Documentos } from '../pdf/index';
@@ -7,6 +8,7 @@ export class Prueba {
     this.nameGuia = nameGuia;
     this.nameDestination = nameDestination;
     this.documentos = new Documentos();
+    this.Alfresco = new AlfrescoController();
   }
   prueba = async () => {
     try {
@@ -28,6 +30,14 @@ export class Prueba {
       );
     } catch (err) {
       console.log(err);
+    }
+  };
+  pruebaDownload = async () => {
+    try {
+      await this.Alfresco.loginAlfresco();
+      return await this.Alfresco.downloadFile();
+    } catch (error) {
+      console.log(error);
     }
   };
 }

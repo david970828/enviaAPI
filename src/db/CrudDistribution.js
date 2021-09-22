@@ -1,19 +1,20 @@
 import { dbconfig } from './dbconfig';
-import {request} from "express";
-const  sql = require('mssql');
+import { request } from 'express';
+const sql = require('mssql');
 
 export class CrudDistribution {
-
   getSolicitudes = async () => {
     try {
-      let  pool = await  sql.connect(dbconfig);
-      let  products = await  pool.request().query('SELECT TOP 20 * from SOLICITUDES');
+      let pool = await sql.connect(dbconfig);
+      let products = await pool
+        .request()
+        .query('SELECT TOP 20 * from SOLICITUDES');
       sql.close();
-      return  products.recordsets;
+      return products.recordsets;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   newSolicitud = async (distribution) => {
     const SCRIPT = `INSERT INTO SOLICITUDES (
@@ -31,8 +32,8 @@ export class CrudDistribution {
                     '${distribution.direccion_recoleccion}',
                     '${distribution.telefono_recoleccion}', 
                     '${distribution.email_recoleccion}')`;
-    return await  this.executeQuery(SCRIPT);
-  }
+    return await this.executeQuery(SCRIPT);
+  };
 
   addGuias = async (guideList) => {
     const SCRIPT = `INSERT INTO GUIAS (
@@ -52,11 +53,11 @@ export class CrudDistribution {
                     documento_relacionado,
                     id_solicitud) VALUES ${this.getRecords(guideList)}`;
     return await this.executeQuery(SCRIPT);
-  }
+  };
 
   getRecords = (guideList) => {
     let values = [];
-    guideList.forEach(item => {
+    guideList.forEach((item) => {
       values.push(`(
       '${item.documento_destinatario}',
       '${item.guia_destinatario}',
@@ -71,31 +72,28 @@ export class CrudDistribution {
       '${item.estado_guia}',
       ${item.valor_declarado},
       ${item.valor_servicio},
-      'envia/guias/${item.documento_relacionado}.pdf',
+      '${item.documento_relacionado}',
       ${item.id_solicitud})`);
     });
     return values.toString();
-  }
+  };
 
   executeQuery = async (script) => {
-    let  pool = await  sql.connect(dbconfig);
-    let  idSolicitud = await  pool.request().query(script);
+    let pool = await sql.connect(dbconfig);
+    let idSolicitud = await pool.request().query(script);
     sql.close();
     return idSolicitud.recordsets;
-  }
-
+  };
 
   getAllGuides = async (idSolicitud) => {
     let QUERY = `SELECT * from GUIAS WHERE ID_SOLICITUD = ${idSolicitud}`;
     try {
-      let  pool = await  sql.connect(dbconfig);
-      let  products = await  pool.request().query(QUERY);
+      let pool = await sql.connect(dbconfig);
+      let products = await pool.request().query(QUERY);
       sql.close();
-      return  products.recordsets;
+      return products.recordsets;
     } catch (error) {
       console.log(error);
     }
-  }
-
+  };
 }
-

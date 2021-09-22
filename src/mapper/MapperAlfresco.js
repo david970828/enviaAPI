@@ -1,11 +1,9 @@
-import { v4 } from 'uuid';
 export class MapperAlfresco {
-  constructor() {
-  }
+  constructor() {}
 
   mapSolicitudesToGuiasAlfresco = (solicitud) => {
     let guiasAlfresco = [];
-    solicitud.paquetes.forEach(guia => {
+    solicitud.paquetes.forEach((guia) => {
       let obj = {
         id_guia: '',
         fecha_admision: guia.fecha_admision,
@@ -28,10 +26,10 @@ export class MapperAlfresco {
         total_flete: guia.valor_declarado + guia.valor_servicio,
         estado_guia: guia.estado_guia,
         direccion_destinatario: guia.direccion_destinatario,
-        documento_relacionado: v4()
+        documento_relacionado: '',
       };
       guiasAlfresco.push(obj);
     });
     return guiasAlfresco;
-  }
+  };
 }
