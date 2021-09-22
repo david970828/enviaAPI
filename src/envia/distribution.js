@@ -5,7 +5,7 @@ import { Documentos } from "../pdf/index";
 
 export class DistributionController {
 
-  getDistribution = async (req, res) => {
+  createDistribution = async (req, res) => {
     const petition = new Solicitudes(req.body);
     const guias = new MapperAlfresco().mapSolicitudesToGuiasAlfresco(petition);
     this.documentos = new Documentos();
@@ -42,6 +42,24 @@ export class DistributionController {
         idSolicitud: id_solicitud,
         message: 'STATUS 200'
       });
+    }
+  }
+
+  getAllGuides = async (req, res) => {
+    let idSolicitud = req.query.idSolicitud;
+    let listGuides;
+    let error = null;
+    try {
+      const response = await new CrudDistribution().getAllGuides(idSolicitud);
+      listGuides = response[0];
+    } catch (err) {
+      console.error(err);
+    }
+
+    if (error != null) {
+      res.status(500).send({error: 'internal error'});
+    } else {
+      res.status(200).send(listGuides);
     }
   }
 
