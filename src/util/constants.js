@@ -3,7 +3,7 @@ export const ESTADOS_GUIA = {
   GENERADA: 'GENERADA', //guia generada por el cliente
   RECOGIDA: 'RECOGIDA', //recogida al cliente
   DESPACHADA: 'DESPACHADA', //ruta nacional
-  BODEGA_DESTINO: 'BODEGA_DESTINO', //en bodega donde se descarga y enruta
+  BODEGA: 'BODEGA', //en bodega donde se descarga y enruta
   REPARTO: 'REPARTO',
   ENTREGADA: 'ENTREGADA',
   NOVEDAD: 'NOVEDAD', //Anteriormente Sigma
