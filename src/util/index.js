@@ -41,3 +41,19 @@ export const randomName = () => {
 
 export const toRedableDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
 export const redableNow = () => toRedableDate(new Date().toISOString());
+
+export const obtenerLocalONacional = (result, ruta, origen_solicitud) => {
+  const guias = [];
+  result.forEach((guia) => {
+    if (ruta === 'local') {
+      if (guia.destino_guia === origen_solicitud) {
+        guias.push(guia);
+      }
+    } else {
+      if (guia.destino_guia !== origen_solicitud) {
+        guias.push(guia);
+      }
+    }
+  });
+  return guias;
+};

@@ -4,6 +4,7 @@ import { CrudDistribution } from '../db/CrudDistribution';
 import { MapperAlfresco } from '../mapper/MapperAlfresco';
 import { Documentos } from '../pdf/index';
 import { ESTADOS_GUIA } from '../util/constants';
+import { obtenerLocalONacional } from '../util';
 
 export class DistributionController {
   constructor() {
@@ -125,18 +126,7 @@ export class DistributionController {
       )
       .then((response) => {
         const result = response;
-        const guias = [];
-        result.forEach((guia) => {
-          if (ruta === 'local') {
-            if (guia.destino_guia === origen_solicitud) {
-              guias.push(guia);
-            }
-          } else {
-            if (guia.destino_guia !== origen_solicitud) {
-              guias.push(guia);
-            }
-          }
-        });
+        const guias = obtenerLocalONacional(result, ruta, origen_solicitud);
         res.status(200).send(guias);
       })
       .catch((error) => {
@@ -156,5 +146,48 @@ export class DistributionController {
         console.log(error);
         res.status(500).send(error);
       });
+  };
+  updateStateSolicitud = async (req, res) => {
+    const { id_solicitud } = req.params;
+    const { ruta } = req.query;
+    const estado_guia = req.body;
+    const solicitud = await this.crudDistribution.executeSingleQuery(
+      `SELECT * FROM SOLICITUDES WHERE id_solicitud = ${id_solicitud}`
+    );
+    const { origen_solicitud } = solicitud;
+    const result = await this.crudDistribution.executeMultiQuery(
+      `SELECT * FROM GUIAS WHERE id_solicitud=${id_solicitud}`
+    );
+    const guias = obtenerLocalONacional(result, ruta, origen_solicitud);
+    guias.forEach(async (guia) => {
+      const newGuia = {
+        id_guia: guia.id_guia,
+        fecha_hora_actualizacion: new Date()
+          .toISOString()
+          .slice(0, 19)
+          .replace('T', ' '),
+        estado_inicial: guia.estado_guia,
+        estado_actualizado: estado_guia,
+      };
+      await this.crudDistribution
+        .executeQuery(
+          `UPDATE GUIAS SET estado_guia = '${estado_guia}' WHERE id_guia=${guia.id_guia};`
+        )
+        .then(() => {
+          this.crudDistribution
+            .addHistorico(newGuia)
+            .then((response) => {
+              res.status(200).send(response);
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(500).send(err);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          res.status(500).send(error);
+        });
+    });
   };
 }
