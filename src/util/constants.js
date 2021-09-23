@@ -1,11 +1,12 @@
 export const DATA_TYPE_PDF = 'data:application/pdf;base64,';
 export const ESTADOS_GUIA = {
-  RECOLECCION: 'RECOLECCION',
-  CLASIFICACION: 'CLASIFICACION',
-  RUTA_NACIONAL: 'RUTA_NACIONAL',
+  GENERADA: 'GENERADA', //guia generada por el cliente
+  RECOGIDA: 'RECOGIDA', //recogida al cliente
+  DESPACHADA: 'DESPACHADA', //ruta nacional
+  BODEGA_DESTINO: 'BODEGA_DESTINO', //en bodega donde se descarga y enruta
   REPARTO: 'REPARTO',
-  ENTREGADO: 'ENTREGADO',
-  SIGMA: 'SIGMA',
+  ENTREGADA: 'ENTREGADA',
+  NOVEDAD: 'NOVEDAD', //Anteriormente Sigma
 };
 export const HEADERS_PLANILLA = [
   'Guía',

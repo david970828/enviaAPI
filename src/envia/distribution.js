@@ -121,7 +121,7 @@ export class DistributionController {
     const { origen_solicitud } = solicitud;
     await this.crudDistribution
       .executeMultiQuery(
-        `SELECT * FROM GUIAS WHERE id_solicitud = ${id_solicitud} AND estado_guia != '${ESTADOS_GUIA.SIGMA}';`
+        `SELECT * FROM GUIAS WHERE id_solicitud = ${id_solicitud} AND estado_guia != '${ESTADOS_GUIA.NOVEDAD}';`
       )
       .then((response) => {
         const result = response;
@@ -147,7 +147,7 @@ export class DistributionController {
   getAllGuidesNoNovelty = async (req, res) => {
     await this.crudDistribution
       .executeQuery(
-        `SELECT * FROM GUIAS WHERE estado_guia != '${ESTADOS_GUIA.SIGMA}';`
+        `SELECT * FROM GUIAS WHERE estado_guia != '${ESTADOS_GUIA.NOVEDAD}';`
       )
       .then((response) => {
         res.status(200).send(response[0]);
