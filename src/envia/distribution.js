@@ -79,13 +79,32 @@ export class DistributionController {
   updateState = async (req, res) => {
     const { id_guia } = req.params;
     const estado_guia = req.body;
+    const guia = await this.crudDistribution.executeSingleQuery(
+      `SELECT * FROM GUIAS WHERE id_guia=${id_guia}`
+    );
+    const newGuia = {
+      id_guia,
+      fecha_hora_actualizacion: new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      estado_inicial: guia.estado_guia,
+      estado_actualizado: estado_guia,
+    };
     await this.crudDistribution
       .executeQuery(
         `UPDATE GUIAS SET estado_guia = '${estado_guia}' WHERE id_guia=${id_guia};`
       )
-      .then((response) => {
-        console.log(response);
-        res.status(200).send(response);
+      .then(() => {
+        this.crudDistribution
+          .addHistorico(newGuia)
+          .then((response) => {
+            res.status(200).send(response);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).send(err);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -95,12 +114,30 @@ export class DistributionController {
   // Lista de guías -> No sigma
   getGuidesNoNovelty = async (req, res) => {
     const { id_solicitud } = req.params;
+    const { ruta } = req.query;
+    const solicitud = await this.crudDistribution.executeSingleQuery(
+      `SELECT * FROM SOLICITUDES WHERE id_solicitud = ${id_solicitud}`
+    );
+    const { origen_solicitud } = solicitud;
     await this.crudDistribution
-      .executeQuery(
+      .executeMultiQuery(
         `SELECT * FROM GUIAS WHERE id_solicitud = ${id_solicitud} AND estado_guia != '${ESTADOS_GUIA.SIGMA}';`
       )
       .then((response) => {
-        res.status(200).send(response[0]);
+        const result = response;
+        const guias = [];
+        result.forEach((guia) => {
+          if (ruta === 'local') {
+            if (guia.destino_guia === origen_solicitud) {
+              guias.push(guia);
+            }
+          } else {
+            if (guia.destino_guia !== origen_solicitud) {
+              guias.push(guia);
+            }
+          }
+        });
+        res.status(200).send(guias);
       })
       .catch((error) => {
         console.log(error);

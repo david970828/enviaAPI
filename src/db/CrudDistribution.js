@@ -85,6 +85,20 @@ export class CrudDistribution {
     return queryResult.recordsets;
   };
 
+  executeMultiQuery = async (script) => {
+    let pool = await sql.connect(dbconfig);
+    let queryResult = await pool.request().query(script);
+    sql.close();
+    return queryResult.recordset;
+  };
+
+  executeSingleQuery = async (script) => {
+    let pool = await sql.connect(dbconfig);
+    let queryResult = await pool.request().query(script);
+    sql.close();
+    return queryResult.recordset[0];
+  };
+
   getAllGuides = async (idSolicitud) => {
     let QUERY = `SELECT * from GUIAS WHERE ID_SOLICITUD = ${idSolicitud}`;
     try {
@@ -106,6 +120,16 @@ export class CrudDistribution {
                     ('${planillaInfo.nombre_planilla}',
                      '${planillaInfo.tipo_planilla}',
                      '${planillaInfo.documento_relacionado}')`;
+    return await this.executeQuery(SCRIPT);
+  };
+
+  addHistorico = async (guia) => {
+    const SCRIPT = `INSERT INTO HISTORICO_ESTADO (
+                      id_guia, fecha_hora_actualizacion,
+                      estado_inicial, estado_actualizado) 
+                    OUTPUT Inserted.id_historico VALUES
+                    (${guia.id_guia}, '${guia.fecha_hora_actualizacion}',
+                      '${guia.estado_inicial}', '${guia.estado_actualizado}')`;
     return await this.executeQuery(SCRIPT);
   };
 }
