@@ -1,5 +1,4 @@
 import { dbconfig } from './dbconfig';
-import { request } from 'express';
 const sql = require('mssql');
 
 export class CrudDistribution {
