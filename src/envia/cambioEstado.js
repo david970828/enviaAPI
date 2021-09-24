@@ -24,6 +24,34 @@ export const construirGuiaHistorico = async (guia, estado_guia) => ({
   estado_actualizado: estado_guia,
 });
 
+export const updateStateGuia = async (
+  guia,
+  estado_guia,
+  crudDistribution,
+  res
+) => {
+  const newGuia = await construirGuiaHistorico(guia, estado_guia);
+  await crudDistribution
+    .executeQuery(
+      `UPDATE GUIAS SET estado_guia = '${estado_guia}' WHERE id_guia=${guia.id_guia};`
+    )
+    .then(() => {
+      crudDistribution
+        .addHistorico(newGuia)
+        .then((response) => {
+          res.status(200).send(response);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send(err);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    });
+};
+
 export const updateStateGuias = async (
   guias,
   estado_guia,
@@ -31,26 +59,7 @@ export const updateStateGuias = async (
   res
 ) => {
   guias.forEach(async (guia) => {
-    const newGuia = await construirGuiaHistorico(guia, estado_guia);
-    await crudDistribution
-      .executeQuery(
-        `UPDATE GUIAS SET estado_guia = '${estado_guia}' WHERE id_guia=${guia.id_guia};`
-      )
-      .then(() => {
-        crudDistribution
-          .addHistorico(newGuia)
-          .then((response) => {
-            res.status(200).send(response);
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(500).send(err);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-        res.status(500).send(error);
-      });
+    await updateStateGuia(guia, estado_guia, crudDistribution, res);
   });
 };
 

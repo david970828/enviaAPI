@@ -9,6 +9,7 @@ import {
   guiasByIdSolicitud,
   obtenerLocalONacional,
   solicitudesById,
+  updateStateGuia,
   updateStateGuias,
 } from './cambioEstado';
 
@@ -82,12 +83,12 @@ export class DistributionController {
       res.status(200).send(listGuides);
     }
   };
-  // Actualizar estado guías
+  // Actualizar estado guías single
   updateState = async (req, res) => {
     const { id_guia } = req.params;
     const estado_guia = req.body;
     const guias = await guiaById(id_guia, this.crudDistribution);
-    await updateStateGuias(guias, estado_guia, this.crudDistribution, res);
+    await updateStateGuia(guias, estado_guia, this.crudDistribution, res);
   };
   // Lista de guías -> No sigma
   getGuidesNoNovelty = async (req, res) => {

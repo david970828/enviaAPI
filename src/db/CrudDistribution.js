@@ -2,14 +2,16 @@ import { dbconfig } from './dbconfig';
 const sql = require('mssql');
 
 export class CrudDistribution {
+  constructor() {}
   getSolicitudes = async () => {
     try {
-      let pool = await sql.connect(dbconfig);
-      let products = await pool
-        .request()
-        .query('SELECT TOP 20 * from SOLICITUDES');
-      sql.close();
-      return products.recordsets;
+      const products = await sql.connect(dbconfig).then(async (pool) => {
+        const products = await pool
+          .request()
+          .query('SELECT TOP 20 * from SOLICITUDES');
+        return products.recordsets;
+      });
+      return products;
     } catch (error) {
       console.log(error);
     }
@@ -78,33 +80,37 @@ export class CrudDistribution {
   };
 
   executeQuery = async (script) => {
-    let pool = await sql.connect(dbconfig);
-    let queryResult = await pool.request().query(script);
-    sql.close();
-    return queryResult.recordsets;
+    const result = await sql.connect(dbconfig).then(async (pool) => {
+      const queryResult = await pool.request().query(script);
+      return queryResult.recordsets;
+    });
+    return result;
   };
 
   executeMultiQuery = async (script) => {
-    let pool = await sql.connect(dbconfig);
-    let queryResult = await pool.request().query(script);
-    sql.close();
-    return queryResult.recordset;
+    const result = await sql.connect(dbconfig).then(async (pool) => {
+      let queryResult = await pool.request().query(script);
+      return queryResult.recordset;
+    });
+    return result;
   };
 
   executeSingleQuery = async (script) => {
-    let pool = await sql.connect(dbconfig);
-    let queryResult = await pool.request().query(script);
-    sql.close();
-    return queryResult.recordset[0];
+    const result = await sql.connect(dbconfig).then(async (pool) => {
+      let queryResult = await pool.request().query(script);
+      return queryResult.recordset[0];
+    });
+    return result;
   };
 
   getAllGuides = async (idSolicitud) => {
-    let QUERY = `SELECT * from GUIAS WHERE ID_SOLICITUD = ${idSolicitud}`;
+    const QUERY = `SELECT * from GUIAS WHERE ID_SOLICITUD = ${idSolicitud}`;
     try {
-      let pool = await sql.connect(dbconfig);
-      let products = await pool.request().query(QUERY);
-      sql.close();
-      return products.recordsets;
+      const result = await sql.connect(dbconfig).then(async (pool) => {
+        const products = await pool.request().query(QUERY);
+        return products.recordsets;
+      });
+      return result;
     } catch (error) {
       console.log(error);
     }
