@@ -5,6 +5,7 @@ import { MapperAlfresco } from '../mapper/MapperAlfresco';
 import { Documentos } from '../pdf/index';
 import { ESTADOS_GUIA } from '../util/constants';
 import {
+  guiaById,
   guiasByIdSolicitud,
   obtenerLocalONacional,
   solicitudesById,
