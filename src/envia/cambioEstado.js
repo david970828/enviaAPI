@@ -27,7 +27,8 @@ export const construirGuiaHistorico = async (guia, estado_guia) => ({
 export const updateStateGuias = async (
   guias,
   estado_guia,
-  crudDistribution
+  crudDistribution,
+  res
 ) => {
   guias.forEach(async (guia) => {
     const newGuia = await construirGuiaHistorico(guia, estado_guia);
