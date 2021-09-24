@@ -143,6 +143,6 @@ export class DistributionController {
     } else {
       guias = obtenerLocalONacional(result, ruta, origen_solicitud);
     }
-    await pdateStateGuias(guias, estado_guia, this.crudDistribution);
+    await updateStateGuias(guias, estado_guia, this.crudDistribution);
   };
 }
