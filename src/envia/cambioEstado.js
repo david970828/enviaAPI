@@ -54,6 +54,11 @@ export const updateStateGuias = async (
   });
 };
 
+export const guiaById = async (id_guia, crudDistribution) =>
+  await crudDistribution.executeSingleQuery(
+    `SELECT * FROM GUIAS WHERE id_guia = ${id_guia}`
+  );
+
 export const guiasByIdSolicitud = async (id_solicitud, crudDistribution) =>
   await crudDistribution.executeMultiQuery(
     `SELECT * FROM GUIAS WHERE id_solicitud=${id_solicitud}`

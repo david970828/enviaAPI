@@ -85,7 +85,7 @@ export class DistributionController {
   updateState = async (req, res) => {
     const { id_guia } = req.params;
     const estado_guia = req.body;
-    const guias = await guiasByIdSolicitud(id_guia, this.crudDistribution);
+    const guias = await guiaById(id_guia, this.crudDistribution);
     await updateStateGuias(guias, estado_guia, this.crudDistribution, res);
   };
   // Lista de guías -> No sigma
