@@ -7,6 +7,7 @@ export const ESTADOS_GUIA = {
   REPARTO: 'REPARTO',
   ENTREGADA: 'ENTREGADA',
   NOVEDAD: 'NOVEDAD', //Anteriormente Sigma
+  NOVEDAD_CLASIFICACION: 'NOVEDAD_CLASIFICACION',
 };
 export const HEADERS_PLANILLA = [
   'Guía',

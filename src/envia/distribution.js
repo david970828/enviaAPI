@@ -4,7 +4,11 @@ import { CrudDistribution } from '../db/CrudDistribution';
 import { MapperAlfresco } from '../mapper/MapperAlfresco';
 import { Documentos } from '../pdf/index';
 import { ESTADOS_GUIA } from '../util/constants';
-import { obtenerLocalONacional } from '../util';
+import {
+  construirGuiaHistorico,
+  obtenerLocalONacional,
+  updateStateGuias,
+} from './cambioEstado';
 
 export class DistributionController {
   constructor() {
@@ -80,44 +84,16 @@ export class DistributionController {
   updateState = async (req, res) => {
     const { id_guia } = req.params;
     const estado_guia = req.body;
-    const guia = await this.crudDistribution.executeSingleQuery(
-      `SELECT * FROM GUIAS WHERE id_guia=${id_guia}`
-    );
-    const newGuia = {
-      id_guia,
-      fecha_hora_actualizacion: new Date()
-        .toISOString()
-        .slice(0, 19)
-        .replace('T', ' '),
-      estado_inicial: guia.estado_guia,
-      estado_actualizado: estado_guia,
-    };
-    await this.crudDistribution
-      .executeQuery(
-        `UPDATE GUIAS SET estado_guia = '${estado_guia}' WHERE id_guia=${id_guia};`
-      )
-      .then(() => {
-        this.crudDistribution
-          .addHistorico(newGuia)
-          .then((response) => {
-            res.status(200).send(response);
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(500).send(err);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-        res.status(500).send(error);
-      });
+    const guias = await guiasByIdSolicitud(id_guia, this.crudDistribution);
+    await updateStateGuias(guias, estado_guia, this.crudDistribution);
   };
   // Lista de guías -> No sigma
   getGuidesNoNovelty = async (req, res) => {
     const { id_solicitud } = req.params;
     const { ruta } = req.query;
-    const solicitud = await this.crudDistribution.executeSingleQuery(
-      `SELECT * FROM SOLICITUDES WHERE id_solicitud = ${id_solicitud}`
+    const solicitud = await solicitudesById(
+      id_solicitud,
+      this.crudDistribution
     );
     const { origen_solicitud } = solicitud;
     await this.crudDistribution
@@ -151,43 +127,21 @@ export class DistributionController {
     const { id_solicitud } = req.params;
     const { ruta } = req.query;
     const estado_guia = req.body;
-    const solicitud = await this.crudDistribution.executeSingleQuery(
-      `SELECT * FROM SOLICITUDES WHERE id_solicitud = ${id_solicitud}`
+    const result = await guiasByIdSolicitud(
+      id_solicitud,
+      this.crudDistribution
+    );
+    const solicitud = await solicitudesById(
+      id_solicitud,
+      this.crudDistribution
     );
     const { origen_solicitud } = solicitud;
-    const result = await this.crudDistribution.executeMultiQuery(
-      `SELECT * FROM GUIAS WHERE id_solicitud=${id_solicitud}`
-    );
-    const guias = obtenerLocalONacional(result, ruta, origen_solicitud);
-    guias.forEach(async (guia) => {
-      const newGuia = {
-        id_guia: guia.id_guia,
-        fecha_hora_actualizacion: new Date()
-          .toISOString()
-          .slice(0, 19)
-          .replace('T', ' '),
-        estado_inicial: guia.estado_guia,
-        estado_actualizado: estado_guia,
-      };
-      await this.crudDistribution
-        .executeQuery(
-          `UPDATE GUIAS SET estado_guia = '${estado_guia}' WHERE id_guia=${guia.id_guia};`
-        )
-        .then(() => {
-          this.crudDistribution
-            .addHistorico(newGuia)
-            .then((response) => {
-              res.status(200).send(response);
-            })
-            .catch((err) => {
-              console.log(err);
-              res.status(500).send(err);
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-          res.status(500).send(error);
-        });
-    });
+    let guias = [];
+    if (ruta === 'todos') {
+      guias = [...result];
+    } else {
+      guias = obtenerLocalONacional(result, ruta, origen_solicitud);
+    }
+    await pdateStateGuias(guias, estado_guia, this.crudDistribution);
   };
 }
