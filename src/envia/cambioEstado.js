@@ -77,3 +77,8 @@ export const solicitudesById = async (id_solicitud, crudDistribution) =>
   await crudDistribution.executeSingleQuery(
     `SELECT * FROM SOLICITUDES WHERE id_solicitud = ${id_solicitud}`
   );
+
+export const planillasBySolicitud = async (id_solicitud, crudDistribution) =>
+  await crudDistribution.executeMultiQuery(
+    `SELECT * FROM PLANILLAS WHERE id_solicitud = ${id_solicitud}`
+  );

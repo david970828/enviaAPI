@@ -120,11 +120,14 @@ export class CrudDistribution {
     const SCRIPT = `INSERT INTO PLANILLAS (
                     nombre_planilla,
                     tipo_planilla,
-                    documento_relacionado) 
+                    documento_relacionado,
+                    id_solicitud) 
                     OUTPUT Inserted.id_planilla VALUES 
                     ('${planillaInfo.nombre_planilla}',
                      '${planillaInfo.tipo_planilla}',
-                     '${planillaInfo.documento_relacionado}')`;
+                     '${planillaInfo.documento_relacionado}',
+                     ${planillaInfo.id_solicitud}
+                     )`;
     return await this.executeQuery(SCRIPT);
   };
 

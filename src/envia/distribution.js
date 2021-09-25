@@ -8,6 +8,7 @@ import {
   guiaById,
   guiasByIdSolicitud,
   obtenerLocalONacional,
+  planillasBySolicitud,
   solicitudesById,
   updateStateGuia,
   updateStateGuias,
@@ -146,5 +147,15 @@ export class DistributionController {
       guias = obtenerLocalONacional(result, ruta, origen_solicitud);
     }
     await updateStateGuias(guias, estado_guia, this.crudDistribution, res);
+  };
+  getPlanillasByIdSolicitud = async (req, res) => {
+    const { id_solicitud } = req.params;
+    planillasBySolicitud(id_solicitud, this.crudDistribution)
+      .then((response) => {
+        res.send(response);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   };
 }
