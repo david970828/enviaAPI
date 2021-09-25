@@ -101,7 +101,7 @@ export class DistributionController {
     const { origen_solicitud } = solicitud;
     await this.crudDistribution
       .executeMultiQuery(
-        `SELECT * FROM GUIAS WHERE id_solicitud = ${id_solicitud} AND estado_guia != '${ESTADOS_GUIA.NOVEDAD}';`
+        `SELECT * FROM GUIAS WHERE id_solicitud = ${id_solicitud} AND estado_guia = '${ESTADOS_GUIA.BODEGA.toLowerCase()}';`
       )
       .then((response) => {
         const result = response;
