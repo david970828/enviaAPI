@@ -2,6 +2,7 @@ import { text } from 'pdf-stream';
 import path from 'path';
 import faker from 'faker';
 import { format, parseISO } from 'date-fns';
+import { v4 } from 'uuid';
 
 export const Uint8arrayToReadableStream = (data) => {
   const stream = text(data).pipe(writable);
@@ -19,7 +20,7 @@ export const deconstructToTablePaquete = (data, remitente) => {
   let total = 0;
   data.forEach((info) => {
     tableToFill.push([
-      info.id_guia,
+      v4(),
       remitente,
       info.nombre_destinatario,
       info.direccion_destinatario,

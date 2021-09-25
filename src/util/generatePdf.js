@@ -15,7 +15,7 @@ export const generatePDF = async (body) => {
   doc.addImage(logo, 'PNG', 10, 10, 30, 20);
   doc.text(body.titulo_planilla, 120, 20);
   doc.setFontSize(9);
-  doc.text(`Fecha y Hora: ${body.fecha_creacion}`, 250, 20);
+  doc.text(`Fecha y Hora: ${redableNow()}`, 250, 20);
   doc.text('Modulo: Operaciones', 10, 35);
   doc.text(`Programa: ${'Bonitasoft - Alfresco'}`, 10, 40);
   doc.text(`Usuario: ${randomName()}`, 10, 45);
